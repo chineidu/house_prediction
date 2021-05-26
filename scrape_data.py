@@ -33,7 +33,7 @@ def get_data(min: int=1, max: int=200) -> 'csv file':
     
         for i, url in enumerate(pages):
             if i % 5 == 0:
-                print(f'page ==> {i}')
+                print(f'page ==> {i}')  # print the processed page number 
                 soup = get_soup(url)
 
             body = soup.select('.property-list .col-md-12')
@@ -41,7 +41,7 @@ def get_data(min: int=1, max: int=200) -> 'csv file':
             for idx, row in enumerate(body):
                 if idx < len(body) - 3:
                     try:
-                        title = row.select_one('.content-title').get_text()
+                        title = row.select_one('.content-title').get_text(strip=True)
                     except:
                         title = None
                     try:
@@ -71,3 +71,8 @@ def get_data(min: int=1, max: int=200) -> 'csv file':
                     
                     # write the files into my_csv object
                     my_csv.writerow([title, address, bed, bath, toilet, pkn_space, price])
+                    
+
+
+# if __name__ == '__main__':
+#     get_data(501, 700)
