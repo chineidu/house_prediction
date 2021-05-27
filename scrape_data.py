@@ -75,4 +75,4 @@ def get_data(min: int=1, max: int=200) -> 'csv file':
 
 
 # if __name__ == '__main__':
-#     get_data(501, 700)
+#     get_data(701, 900)
