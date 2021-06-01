@@ -8,10 +8,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 
-
+### Helper Functions
 def load_data() -> pd.DataFrame:
     """
-    ====================================================
+    ===================================================================
     Load data from a directory and covert into a single dataframe.
     """
     # load the csv files in the 'data' directory and save it in a list
@@ -26,7 +26,7 @@ def load_data() -> pd.DataFrame:
 
 def get_address(addr: str) -> str:
     """ 
-    =================================================================
+    =====================================================================
         Extract the address.
     """
     result = addr.split(',')[-2:-1]  # select the city
@@ -43,9 +43,10 @@ def clean_text(text: str) -> str:
     result = re.sub(pattern, '', text, flags=re.I)
     return result
 
+# main function
 def clean_data_n_return_estimator(data: pd.DataFrame):
     """
-    ====================================================
+    ====================================================================
     Clean and tranform the features.
     """        
     df = data.copy()
@@ -91,18 +92,16 @@ def clean_data_n_return_estimator(data: pd.DataFrame):
     df = df.drop(columns=['price'])
     X = df.drop(columns=['log_price'])
     y = df['log_price']
-
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
-
     # train the model with the optimal hyperparameters
     reg = RandomForestRegressor(max_depth=14, n_estimators=160, random_state=123)
     # fit 
-    reg.fit(X_train, y_train)    
+    reg.fit(X_train, y_train)  
+
     # save the model
     model = {}
     model['reg'] = reg
     model['location'] = le_location
-
     with open('./model/estimator.pkl', 'wb') as f:
         pickle.dump(model, f)
 
@@ -110,4 +109,5 @@ def clean_data_n_return_estimator(data: pd.DataFrame):
 if __name__ == "__main__":
     # load the data
     df = load_data()
+    # clean the data and return an estimator
     clean_data_n_return_estimator(df)
