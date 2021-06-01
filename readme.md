@@ -16,3 +16,7 @@ Image credit: [Nigeria Property Centre](https://nigeriapropertycentre.com)
 * The data was obtained from [Nigeria Property Centre](https://nigeriapropertycentre.com). I scraped the website using BeautifulSoup4 and requests libraries.
 * The data was stored as a csv file after the data collection.
 * Enter more information about the data i.e features, num_observations.
+
+## App Interface
+
+[![app-interface.jpg](https://i.postimg.cc/qB3Jwmx0/app-interface.jpg)](https://postimg.cc/yW7CYyGr)

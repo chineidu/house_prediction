@@ -43,6 +43,17 @@ def clean_text(text: str) -> str:
     result = re.sub(pattern, '', text, flags=re.I)
     return result
 
+def load_estimator() -> 'estimator':
+    """
+    ====================================================================
+    Load the trained model
+    """ 
+    # load the model
+    with open('./model/estimator.pkl', 'rb') as f:
+        loaded_estimators = pickle.load(f)
+    return loaded_estimators
+
+###############################################################################################################################################
 # main function
 def clean_data_n_return_estimator(data: pd.DataFrame):
     """

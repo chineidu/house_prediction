@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %} 
+    <div class="form-group" style="text-align:center">  <!-- Center the content-->
+        <br>
+        <br>
+        <div class="alert alert-primary" role="alert">
+            <h3>House Prices APP</h3> <a href="#" class="alert-link"></a>
+          </div>
+
+        
+
+        <!-- Main Input For Receiving Query to our ML -->
+        <form action="{{ url_for('predict') }}"method="POST">
+            <label for="location">Choose a location:</label>
+            <select select name="location" id="location">
+            <option value="Lekki">Lekki</option>
+            <option value="Ajah">Ajah</option>
+            <option value="Ikeja">Ikeja</option>
+            <option value="Ikoyi">Ikoyi</option>
+            <option value="Victoria Island (VI)">Victoria Island (VI)</option>
+            <option value="Ibeju Lekki">Ibeju Lekki</option>
+            <option value="Isheri North">Isheri North</option>
+            <option value="Magodo">Magodo</option>
+            <option value="Maryland">Maryland</option>
+            <option value="Ikorodu">Ikorodu</option>
+            <option value="Surulere">Surulere</option>
+            <option value="Ojodu">Ojodu</option>
+            <option value="Ipaja">Ipaja</option>
+            <option value="Ikotun">Ikotun</option>
+            <option value="Isolo">Isolo</option>
+            </select>
+            <br>
+            <label for="bed">Number of bedrooms</label>
+            <select name="bed" id="bed">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <br>
+            <label for="bath">Number of bathrooms</label>
+            <select name="bath" id="bath">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <br>
+            <label for="toilet">Number of Toilets</label>
+            <select name="toilet" id="toilet">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <br>
+            <label>Parking Space</label>
+            <input type="number" name="pkn_space"  min="2" max="10" required="required"/>
+            <hr>
+            <div>
+                <button type="submit" class="btn btn-primary">Predict</button>
+            </div>
+        </form>
+        <hr>
+            <div class="alert alert-success" role="alert">
+                <h5>{{ prediction_text }}</h5>
+            </div>
+{% endblock content %}
+    </div>
+
