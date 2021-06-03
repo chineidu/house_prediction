@@ -36,13 +36,33 @@ The features (columns) contained messy entries and were tidied using regular exp
 * parsed the numeric data out of bed, bath, toilet, parking space and price.
 * removed aberrant entries and outliers.
 * replaced the missing values with the median values.
+* dropped the "title" column since it added no value to the analysis.
+* filtered out houses with fewer locations to avoid skewing the analysis.
 
 ## EDA
 
+* The count of each loacation used in the data analysis after filtering out outliers and abnormal values.
+[![locations.jpg](https://i.postimg.cc/CKWcNn1w/locations.jpg)](https://postimg.cc/Z9xPYRpQ)
+
+* The average price of a house by location.
+[![avg-price.jpg](https://i.postimg.cc/ZKMppt0S/avg-price.jpg)](https://postimg.cc/1fD81dpC)
+
 ## Model Building
+
+* The categorical feature (location) was transformed into numerical data and I used a test size of 20% for the data modelling.
+* I applied log transformation on the price which transformed the price to a fairly Gaussian distribution.
+* Root mean squared error (**RMSE**) which is the square root of the sum of the difference between the true value and the predicted value was the metric used to evaluate the performance of the model.
+* **Multiple Linear Regression**, **Ridge Regression**, **Random Forest Regressor**, **Ada Boost Regressor** and **Support Vector Regressor** models were all built.
+* **Random Forest Regressor** was chosen because it had a lower RMSE
 
 ## Model Performance
 
+* Random Forest Regressor model performed better than other models.
+* The optimal parameters were chosen using GridSearchCV.
+[![evaluation.jpg](https://i.postimg.cc/7hMCRdnK/evaluation.jpg)](https://postimg.cc/64q52HSZ)
+
 ## Flask App
 
+I built a flask app and an API that is currently hosted on a local server. The app and the API take in a list of values and output an estimated range of the price of the house.
+I intend to deploy the app on the cloud using Heroku.
 [![app-interface.jpg](https://i.postimg.cc/qB3Jwmx0/app-interface.jpg)](https://postimg.cc/yW7CYyGr)
