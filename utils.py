@@ -55,7 +55,7 @@ def load_estimator() -> 'estimator':
 
 ###############################################################################################################################################
 # main function
-def clean_data_n_return_estimator(data: pd.DataFrame):
+def clean_data_n_return_estimator(data: pd.DataFrame) -> 'pickle file':
     """
     ====================================================================
     Clean and tranform the features.
