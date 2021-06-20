@@ -1,18 +1,32 @@
 {% extends "layout.html" %}
-{% block content %} 
-    <div class="form-group" style="text-align:center">  <!-- Center the content-->
-        <br>
-        <br>
-        <div class="alert alert-primary" role="alert">
-            <h3>House Prices APP</h3> <a href="#" class="alert-link"></a>
-          </div>
+{% block content %}
+<div class="form-group" style="text-align:center">
+    <!-- Center the content-->
+    <br>
+    <br>
+    <div class="alert alert-primary" role="alert">
+        <h2>House Prices Prediction</h2> <a href="#" class="alert-link"></a>
+    </div>
 
-        
 
-        <!-- Main Input For Receiving Query to our ML -->
-        <form action="{{ url_for('predict') }}"method="POST">
-            <label for="location">Choose a location:</label>
-            <select select name="location" id="location">
+
+    <!-- Main Input For Receiving Query to ML -->
+    <form action="{{ url_for('predict') }}" method="POST">
+
+        <label for="type">Choose a building type:</label>
+        <select select name="type" id="type">
+            <option value="Detached Duplex">Detached Duplex</option>
+            <option value="Semi-Detached Duplex">Semi-Detached Duplex</option>
+            <option value="Terraced Duplex">Terraced Duplex</option>
+            <option value="Detached Bungalow">Detached Bungalow</option>
+            <option value="Block Of Flats">Victoria Island (VI)</option>
+            <option value="House">Simple House</option>
+            <option value="Semi-Detached Bungalow ">Semi-Detached Bungalow </option>
+            <option value="Terraced Bungalow">Terraced Bungalow</option>
+        </select>
+            <br>
+        <label for="location">Choose a location:</label>
+        <select select name="location" id="location">
             <option value="Lekki">Lekki</option>
             <option value="Ajah">Ajah</option>
             <option value="Ikeja">Ikeja</option>
@@ -28,47 +42,42 @@
             <option value="Ipaja">Ipaja</option>
             <option value="Ikotun">Ikotun</option>
             <option value="Isolo">Isolo</option>
-            </select>
-            <br>
-            <label for="bed">Number of bedrooms</label>
-            <select name="bed" id="bed">
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-            </select>
-            <br>
-            <label for="bath">Number of bathrooms</label>
-            <select name="bath" id="bath">
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-            </select>
-            <br>
-            <label for="toilet">Number of Toilets</label>
-            <select name="toilet" id="toilet">
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-            </select>
-            <br>
-            <label>Parking Space</label>
-            <input type="number" name="pkn_space"  min="2" max="10" required="required"/>
-            <hr>
-            <div>
-                <button type="submit" class="btn btn-primary">Predict</button>
-            </div>
-        </form>
+        </select>
+        <br>
+        <label for="bed">Number of bedrooms</label>
+        <select name="bed" id="bed">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+        <br>
+        <label for="bath">Number of bathrooms</label>
+        <select name="bath" id="bath">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+        <br>
+        <label for="toilet">Number of Toilets</label>
+        <select name="toilet" id="toilet">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        <br>
+        <label>Parking Space</label>
+        <input type="number" name="pkn_space" min="2" max="10" required="required"/>
         <hr>
-            <div class="alert alert-success" role="alert">
-                <h5>{{ prediction_text }}</h5>
-            </div>
-{% endblock content %}
-    </div>
-
+        <div>
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </div>
+    </form>
+    {% endblock content %}
+</div>
