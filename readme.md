@@ -13,8 +13,15 @@ Optimised Random Forest Regressor using GridSearchCV to obtain the best model.
 
 ## Packages/Tools Used
 
-Python Version: 3.9
-Packages: BeautifulSoup, Request, Numpy, Matplotlib, Seaborn, Scikit Learn, Pickle, and Flask.
+* Python Version: 3.9
+* BeautifulSoup
+* Request
+* Numpy
+* Matplotlib
+* Seaborn
+* Scikit-Learn
+* Pickle
+* Flask.
 
 ## Data
 
@@ -32,20 +39,19 @@ The data was stored as a csv file after the data collection. The scraped data co
 
 The features (columns) contained messy entries and were tidied using regular expression and some custom functions. The following steps were taken.
 
-* extracted the address.
+* extracted the address and the building type.
 * parsed the numeric data out of bed, bath, toilet, parking space and price.
 * removed aberrant entries and outliers.
 * replaced the missing values with the median values.
-* dropped the "title" column since it added no value to the analysis.
 * filtered out houses with fewer locations to avoid skewing the analysis.
 
 ## EDA
 
 * The count of each loacation used in the data analysis after filtering out outliers and abnormal values.
-[![locations.jpg](https://i.postimg.cc/CKWcNn1w/locations.jpg)](https://postimg.cc/Z9xPYRpQ)
+[![image-2021-06-20-103750.png](https://i.postimg.cc/ydwFjDLZ/image-2021-06-20-103750.png)](https://postimg.cc/Q9J9xdG8)
 
-* The average price of a house by location.
-[![avg-price.jpg](https://i.postimg.cc/ZKMppt0S/avg-price.jpg)](https://postimg.cc/1fD81dpC)
+* The important features that affect the price of houses in Lagos are:
+![feature_importance](https://i.postimg.cc/KY3X3LLS/image-2021-06-20-102809.png)
 
 ## Model Building
 
@@ -59,10 +65,10 @@ The features (columns) contained messy entries and were tidied using regular exp
 
 * Random Forest Regressor model performed better than other models.
 * The optimal parameters were chosen using GridSearchCV.
-[![evaluation.jpg](https://i.postimg.cc/7hMCRdnK/evaluation.jpg)](https://postimg.cc/64q52HSZ)
+[![evaluation.jpg](https://i.postimg.cc/x1SN4yfg/evaluation.jpg)](https://postimg.cc/fJBb3d00)
 
 ## Flask App
 
 I built a flask app and an API that is currently hosted on a local server. The app and the API take in a list of values and output an estimated range of the price of the house.
 I intend to deploy the app on the cloud using Heroku.
-[![app-interface.jpg](https://i.postimg.cc/qB3Jwmx0/app-interface.jpg)](https://postimg.cc/yW7CYyGr)
+[![app-interface.jpg](https://i.postimg.cc/ht9TDZyH/app-interface.jpg)](https://postimg.cc/RWZNGdzR)
