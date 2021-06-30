@@ -21,8 +21,6 @@ def load_data() -> pd.DataFrame:
     for file in files:
         df = pd.read_csv(f"data/{file}")  # read each file
         all_df = pd.concat([all_df, df], axis="index")  # concatenate each file
-    # filter out duplicated records
-    all_df = all_df[all_df.duplicated(keep="first")]
     return all_df
 
 
@@ -42,8 +40,7 @@ def get_address(addr: str) -> str:
 
 
 def clean_text(text: str) -> str:
-    """Clean the text.
-
+    """Clean the text and extract the numerical details.
     Args:
         text (str): Raw Text.
 
@@ -101,7 +98,7 @@ def clean_data_n_return_estimator(data: pd.DataFrame) -> "pickle file":
             df[col] = df[col].apply(get_address)
         elif col == "title":
             df[col] = df[col].apply(extract_details)
-        elif col != "title":
+        elif col != "title" or col != "address":
             df[col] = df[col].apply(clean_text)
 
     # convert to numeric data type
@@ -115,7 +112,7 @@ def clean_data_n_return_estimator(data: pd.DataFrame) -> "pickle file":
     # select houses with pkn_space between 1 and 10
     df = df.loc[(df["pkn_space"] > 2) & (df["pkn_space"] < 11)]
     #  outliers for price
-    cut_off = np.percentile(df["price"], 98)  # remove prices above the 98th percentile
+    cut_off = np.percentile(df["price"], 96)  # remove prices above the 96th percentile
     df = df.loc[df["price"] <= cut_off]
     # fill the missing values in 'pkn_space' with the median value
     median = df["pkn_space"].median()
@@ -124,23 +121,12 @@ def clean_data_n_return_estimator(data: pd.DataFrame) -> "pickle file":
     # rename column
     df = df.rename(columns={"title": "type"})
     df = df.rename(columns={"address": "location"})
-    locations = [
-                'Lekki',
-                'Ajah',
-                'Ikoyi',
-                'Ikeja',
-                'Ibeju Lekki',
-                'Victoria Island (VI)',
-                'Magodo',
-                'Isheri North',
-                'Ikorodu',
-                'Agege',
-                'Alimosho',
-                'Surulere',
-                'Gbagada',
-                'Ipaja',
-                'Ikotun'
-            ]
+
+    # select the locations by creating a pivot table. sort in descending number of count
+    addr_count = pd.crosstab(index=df["location"], columns="Count").apply(lambda x: x.sort_values(ascending=False))
+    addr_count.columns = ["Count"]  # rename column
+    addr_count = addr_count.reset_index()[:15] # reset the index and select the top 15 locations
+    locations = [*addr_count["location"].values]  # add the locations and store in a list
 
     # Filter out locations with fewer counts
     df = df.loc[df["location"].isin(locations)]
@@ -155,11 +141,9 @@ def clean_data_n_return_estimator(data: pd.DataFrame) -> "pickle file":
     df = df.drop(columns=["price"])
     X = df.drop(columns=["log_price"])
     y = df["log_price"]
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=123
-    )
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
     # train the model with the optimal hyperparameters
-    reg = RandomForestRegressor(max_depth=None, n_estimators=140, random_state=123)
+    reg = RandomForestRegressor(max_depth=12, n_estimators=90, random_state=123)
     # fit
     reg.fit(X_train, y_train)
 

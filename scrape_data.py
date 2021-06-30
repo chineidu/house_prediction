@@ -22,7 +22,7 @@ def get_data(min: int = 1, max: int = 200) -> "csv file":
         pages.append(url)
 
     # create csv file
-    with open("house_data.csv", "w") as f:
+    with open("house_data.csv", "w", encoding="utf-8") as f:
         col_names = ["title", "address", "bed", "bath", "toilet", "pkn_space", "price"]
         # instantiate
         my_csv = csv.writer(f, delimiter=",")
@@ -31,12 +31,12 @@ def get_data(min: int = 1, max: int = 200) -> "csv file":
         my_csv.writerow(col_names)
 
         for i, url in enumerate(pages):
-            if i % 5 == 0:
-                print(f"page ==> {i}")  # print the processed page number
+            try:
                 soup = get_soup(url)
-
-            body = soup.select(".property-list .col-md-12")
-
+                body = soup.select(".property-list .col-md-12")
+            except:
+                soup = None
+                body = None
             for idx, row in enumerate(body):
                 if idx < len(body) - 3:
                     try:
@@ -44,33 +44,23 @@ def get_data(min: int = 1, max: int = 200) -> "csv file":
                     except:
                         title = None
                     try:
-                        address = row.select_one(".voffset-bottom-10 strong").get_text(
-                            strip=True
-                        )
+                        address = row.select_one(".voffset-bottom-10 strong").get_text(strip=True)
                     except:
                         address = None
                     try:
-                        bed = row.select_one(".aux-info li:nth-child(1)").get_text(
-                            strip=True
-                        )
+                        bed = row.select_one(".aux-info li:nth-child(1)").get_text(strip=True)
                     except:
                         bed = None
                     try:
-                        bath = row.select_one(".aux-info li:nth-child(2)").get_text(
-                            strip=True
-                        )
+                        bath = row.select_one(".aux-info li:nth-child(2)").get_text(strip=True)
                     except:
                         bath = None
                     try:
-                        toilet = row.select_one(".aux-info li:nth-child(3)").get_text(
-                            strip=True
-                        )
+                        toilet = row.select_one(".aux-info li:nth-child(3)").get_text(strip=True)
                     except:
                         toilet = None
                     try:
-                        pkn_space = row.select_one(
-                            ".aux-info li:nth-child(4)"
-                        ).get_text(strip=True)
+                        pkn_space = row.select_one(".aux-info li:nth-child(4)").get_text(strip=True)
                     except:
                         pkn_space = None
                     try:
@@ -79,12 +69,10 @@ def get_data(min: int = 1, max: int = 200) -> "csv file":
                         price = None
 
                     # write the files into my_csv object
-                    my_csv.writerow(
-                        [title, address, bed, bath, toilet, pkn_space, price]
-                    )
+                    my_csv.writerow([title, address, bed, bath, toilet, pkn_space, price])
 
 
 if __name__ == "__main__":
-    get_data(1056, 1158)
+    get_data(1001, 1200)
     # 1158 1260
 

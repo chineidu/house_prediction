@@ -69,6 +69,6 @@ The features (columns) contained messy entries and were tidied using regular exp
 
 ## Flask App
 
-I built a flask app and an API that is currently hosted on a local server. The app and the API take in a list of values and output an estimated range of the price of the house.
-I intend to deploy the app on the cloud using Heroku.
+I built a flask app and an API. The app and the API take in a list of values and output an estimated range of the price of the house.
+The [web app](https://lagoshouseprice.herokuapp.com) was deployed on the cloud using Heroku.
 [![app-interface.jpg](https://i.postimg.cc/ht9TDZyH/app-interface.jpg)](https://postimg.cc/RWZNGdzR)
